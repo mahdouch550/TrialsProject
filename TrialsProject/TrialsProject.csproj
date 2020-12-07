@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,8 +43,20 @@
     <Reference Include="CSVFile, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CSVFile.2.0.3\lib\net40\CSVFile.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Effortless.Net.Encryption, Version=3.3.0.0, Culture=neutral, PublicKeyToken=603f9a8e5bb15e51, processorArchitecture=MSIL">
       <HintPath>..\packages\Effortless.Net.Encryption.3.3.0\lib\net40\Effortless.Net.Encryption.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GestionDesMarchandises.DAL">
+      <HintPath>..\GestionDesMarchandises.DAL.dll</HintPath>
     </Reference>
     <Reference Include="GoogleTranslateFreeApi, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GoogleTranslateFreeApi.1.1.1\lib\netstandard1.1\GoogleTranslateFreeApi.dll</HintPath>
@@ -61,6 +76,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
@@ -190,8 +206,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTS\AppDbContext.cs" />
+    <Compile Include="Migrations\202012050910339_Initial.cs" />
+    <Compile Include="Migrations\202012050910339_Initial.designer.cs">
+      <DependentUpon>202012050910339_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012070826317_ChangedDateTimeObjectsToNullableDateTimeObject.cs" />
+    <Compile Include="Migrations\202012070826317_ChangedDateTimeObjectsToNullableDateTimeObject.designer.cs">
+      <DependentUpon>202012070826317_ChangedDateTimeObjectsToNullableDateTimeObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012070832495_ChangedNullableDateTimeObjectType.cs" />
+    <Compile Include="Migrations\202012070832495_ChangedNullableDateTimeObjectType.designer.cs">
+      <DependentUpon>202012070832495_ChangedNullableDateTimeObjectType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleParSite.cs" />
+    <Compile Include="Models\CategorieSiteClient.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientsMarchandiser.cs" />
+    <Compile Include="Models\ComputerDocument.cs" />
+    <Compile Include="Models\FamilleClient.cs" />
+    <Compile Include="Models\LigneRapportVisite.cs" />
+    <Compile Include="Models\Plan.cs" />
+    <Compile Include="Models\ReclamationD.cs" />
+    <Compile Include="Models\ReclamationH.cs" />
+    <Compile Include="Models\Site.cs" />
+    <Compile Include="Models\SitesMarchandiser.cs" />
+    <Compile Include="Models\TraceGPS.cs" />
+    <Compile Include="Models\TraceGPSSite.cs" />
+    <Compile Include="Models\TypeVisite.cs" />
+    <Compile Include="Models\Utilisateur.cs" />
+    <Compile Include="Models\Visite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlJobs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -208,5 +257,24 @@
       <Name>ClassLibraryProject</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012050910339_Initial.resx">
+      <DependentUpon>202012050910339_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012070826317_ChangedDateTimeObjectsToNullableDateTimeObject.resx">
+      <DependentUpon>202012070826317_ChangedDateTimeObjectsToNullableDateTimeObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012070832495_ChangedNullableDateTimeObjectType.resx">
+      <DependentUpon>202012070832495_ChangedNullableDateTimeObjectType.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>
