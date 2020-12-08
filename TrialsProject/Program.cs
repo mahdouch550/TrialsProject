@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,16 +11,9 @@ namespace TrialsProject
     {
         private static void Main(string[] args)
         {
-            var addAnotherClass = default(char);
-            do
-            {
-                if(GenerateCSClass())
-                    Console.WriteLine("CS File generated successfully!");
-                Console.WriteLine("Would you like to add another class? (y/n)");
-                addAnotherClass = Console.ReadLine()[0];
-            }
-            while (addAnotherClass == 'y');
-
+            Console.WriteLine("Write the path of the folder conatining the HTML Files");
+            var htmlFilesFolderPath = Console.ReadLine();
+            GetJsAndCSsScriptLinesPerFile(htmlFilesFolderPath);
             Console.ReadLine();
         }
 
@@ -30,129 +24,129 @@ namespace TrialsProject
             var appDbContext = new AppDbContext();
 
 
-            //sw.Start();
-            //var ArticleParSites = sqlJob.GetAllArticleParSites();
-            //ArticleParSites.ForEach(art => 
-            //{
-            //    appDbContext.ArticleParSites.Add(art);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(ArticleParSites.IndexOf(art)/(double)ArticleParSites.Count)*100d}% of ArticleParSites finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {ArticleParSites.Count} ArticleParSite row(s).");
-            //sw.Reset();
+            sw.Start();
+            var ArticleParSites = sqlJob.GetAllArticleParSites();
+            ArticleParSites.ForEach(art =>
+            {
+                appDbContext.ArticleParSites.Add(art);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(ArticleParSites.IndexOf(art) / (double)ArticleParSites.Count) * 100d}% of ArticleParSites finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {ArticleParSites.Count} ArticleParSite row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var Articles = sqlJob.GetAllArticles();
-            //Articles.ForEach(art =>
-            //{
-            //    appDbContext.Articles.Add(art);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(Articles.IndexOf(art) / Articles.Count) * 100d}% of Articles finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Articles.Count} Articles row(s).");
-            //sw.Reset();
+            sw.Start();
+            var Articles = sqlJob.GetAllArticles();
+            Articles.ForEach(art =>
+            {
+                appDbContext.Articles.Add(art);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(Articles.IndexOf(art) / Articles.Count) * 100d}% of Articles finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Articles.Count} Articles row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var CategorieSiteClients = sqlJob.GetAllCategorieSiteClients();
-            //CategorieSiteClients.ForEach(catclt =>
-            //{
-            //    appDbContext.CategorieSiteClients.Add(catclt);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(CategorieSiteClients.IndexOf(catclt) / CategorieSiteClients.Count) * 100d}% of Articles finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {CategorieSiteClients.Count} CategorieSiteClients row(s).");
-            //sw.Reset();
+            sw.Start();
+            var CategorieSiteClients = sqlJob.GetAllCategorieSiteClients();
+            CategorieSiteClients.ForEach(catclt =>
+            {
+                appDbContext.CategorieSiteClients.Add(catclt);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(CategorieSiteClients.IndexOf(catclt) / CategorieSiteClients.Count) * 100d}% of Articles finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {CategorieSiteClients.Count} CategorieSiteClients row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var Clients = sqlJob.GetAllClients();
-            //Clients.ForEach(clt =>
-            //{
-            //    appDbContext.Clients.Add(clt);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(Clients.IndexOf(clt) / Clients.Count) * 100d}% of Clients finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Clients.Count} Clients row(s).");
-            //sw.Reset();
+            sw.Start();
+            var Clients = sqlJob.GetAllClients();
+            Clients.ForEach(clt =>
+            {
+                appDbContext.Clients.Add(clt);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(Clients.IndexOf(clt) / Clients.Count) * 100d}% of Clients finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Clients.Count} Clients row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var ClientsMarchandiser = sqlJob.GetAllClientsMarchandiser();
-            //ClientsMarchandiser.ForEach(cltmrch =>
-            //{
-            //    appDbContext.ClientsMarchandisers.Add(cltmrch);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(ClientsMarchandiser.IndexOf(cltmrch) / ClientsMarchandiser.Count) * 100d}% of ClientsMarchandiser finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {ClientsMarchandiser.Count} ClientsMarchandiser row(s).");
-            //sw.Reset();
+            sw.Start();
+            var ClientsMarchandiser = sqlJob.GetAllClientsMarchandiser();
+            ClientsMarchandiser.ForEach(cltmrch =>
+            {
+                appDbContext.ClientsMarchandisers.Add(cltmrch);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(ClientsMarchandiser.IndexOf(cltmrch) / ClientsMarchandiser.Count) * 100d}% of ClientsMarchandiser finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {ClientsMarchandiser.Count} ClientsMarchandiser row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var ComputerDocument = sqlJob.GetAllComputerDocument();
-            //ComputerDocument.ForEach(cptdoc =>
-            //{
-            //    appDbContext.ComputerDocuments.Add(cptdoc);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(ComputerDocument.IndexOf(cptdoc) / ComputerDocument.Count) * 100d}% of ComputerDocuments finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {ComputerDocument.Count} ComputerDocument row(s).");
-            //sw.Reset();
+            sw.Start();
+            var ComputerDocument = sqlJob.GetAllComputerDocument();
+            ComputerDocument.ForEach(cptdoc =>
+            {
+                appDbContext.ComputerDocuments.Add(cptdoc);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(ComputerDocument.IndexOf(cptdoc) / ComputerDocument.Count) * 100d}% of ComputerDocuments finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {ComputerDocument.Count} ComputerDocument row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var FamilleClients = sqlJob.GetAllFamilleClients();
-            //FamilleClients.ForEach(fmclt =>
-            //{
-            //    appDbContext.FamilleClients.Add(fmclt);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(FamilleClients.IndexOf(fmclt) / FamilleClients.Count) * 100d}% of FamilleClients finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {FamilleClients.Count} FamilleClients row(s).");
-            //sw.Reset();
+            sw.Start();
+            var FamilleClients = sqlJob.GetAllFamilleClients();
+            FamilleClients.ForEach(fmclt =>
+            {
+                appDbContext.FamilleClients.Add(fmclt);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(FamilleClients.IndexOf(fmclt) / FamilleClients.Count) * 100d}% of FamilleClients finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {FamilleClients.Count} FamilleClients row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var LigneRapportVisites = sqlJob.GetAllLigneRapportVisites();
-            //LigneRapportVisites.ForEach(lnrprvst =>
-            //{
-            //    appDbContext.LigneRapportVisites.Add(lnrprvst);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(LigneRapportVisites.IndexOf(lnrprvst) / LigneRapportVisites.Count) * 100d}% of LigneRapportVisites finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {LigneRapportVisites.Count} LigneRapportVisites row(s).");
-            //sw.Reset();
+            sw.Start();
+            var LigneRapportVisites = sqlJob.GetAllLigneRapportVisites();
+            LigneRapportVisites.ForEach(lnrprvst =>
+            {
+                appDbContext.LigneRapportVisites.Add(lnrprvst);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(LigneRapportVisites.IndexOf(lnrprvst) / LigneRapportVisites.Count) * 100d}% of LigneRapportVisites finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {LigneRapportVisites.Count} LigneRapportVisites row(s).");
+            sw.Reset();
 
 
 
-            //sw.Start();
-            //var Plans = sqlJob.GetAllPlans();
-            //Plans.ForEach(pln =>
-            //{
-            //    appDbContext.Plans.Add(pln);
-            //    appDbContext.SaveChanges();
-            //    Console.WriteLine($"{(Plans.IndexOf(pln) / Plans.Count) * 100d}% of Plans finished.");
-            //});
-            //sw.Stop();
-            //Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Plans.Count} Plans row(s).");
-            //sw.Reset();
+            sw.Start();
+            var Plans = sqlJob.GetAllPlans();
+            Plans.ForEach(pln =>
+            {
+                appDbContext.Plans.Add(pln);
+                appDbContext.SaveChanges();
+                Console.WriteLine($"{(Plans.IndexOf(pln) / Plans.Count) * 100d}% of Plans finished.");
+            });
+            sw.Stop();
+            Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Plans.Count} Plans row(s).");
+            sw.Reset();
 
 
 
@@ -326,6 +320,21 @@ namespace TrialsProject
             File.Create(outputFilePath).Close();
             File.WriteAllText(outputFilePath, script);
             return true;
+        }
+
+        private static void GetJsAndCSsScriptLinesPerFile(String folderPath)
+        {
+            var files = Directory.GetFiles(folderPath).ToList();
+            files.ForEach(file =>
+            {
+                Console.WriteLine("JS Files used in "+Path.GetFileName(file)+": ");
+                var linesWithJsFileExtension = File.ReadAllLines(file).Where(line => line.Contains(".js\"")).Select(line => line.Replace("                ","")).ToList();
+                linesWithJsFileExtension.ForEach(line => Console.WriteLine(line));
+
+                Console.WriteLine("CSS Files used in " + Path.GetFileName(file) + ": ");
+                var linesWithCSSFileExtension = File.ReadAllLines(file).Where(line => line.Contains(".css\"")).Select(line => line.Replace("                ", "")).ToList();
+                linesWithCSSFileExtension.ForEach(line => Console.WriteLine(line));
+            });
         }
     }
 }
