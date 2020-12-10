@@ -297,7 +297,7 @@ namespace TrialsProject
         {
             Console.WriteLine("Write the namespace value:");
             var spacename = Console.ReadLine();
-            var script = "using System;\nnamespace " + spacename + " {\npublic class ";
+            var script = "using System;\nnamespace " + spacename + " {\n\tpublic class ";
             Console.WriteLine("Type the absolute path of the output file:");
             var outputFilePath = Console.ReadLine();
             while (!outputFilePath.ToLower().EndsWith(".cs"))
@@ -312,11 +312,11 @@ namespace TrialsProject
             {
                 Console.WriteLine("Write property type and property name (example: int x)"+Environment.NewLine+"Write \"finished!\" to stop adding attributes.");
                 property = Console.ReadLine();
-                script += property + " { get; set; }" + Environment.NewLine;
+                script += "\t"+property + " { get; set; }" + Environment.NewLine;
             } 
             while (!property.Equals("finished!"));
 
-            script += "}"+Environment.NewLine+"}";
+            script += "\t}"+Environment.NewLine+"}";
             File.Create(outputFilePath).Close();
             File.WriteAllText(outputFilePath, script);
             return true;
