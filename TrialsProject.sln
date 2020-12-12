@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryProject", "Clas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceProject", "WindowsServiceProject\WindowsServiceProject.csproj", "{575B4BE1-3E31-4DDF-98AC-CA8B0AAC5ABF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTrialProject", "BlazorTrialProject\BlazorTrialProject.csproj", "{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{575B4BE1-3E31-4DDF-98AC-CA8B0AAC5ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{575B4BE1-3E31-4DDF-98AC-CA8B0AAC5ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{575B4BE1-3E31-4DDF-98AC-CA8B0AAC5ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
