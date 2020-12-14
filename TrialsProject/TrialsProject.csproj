@@ -256,6 +256,10 @@
       <Project>{1a42565a-f3f0-4dc2-be88-a3f27521eb14}</Project>
       <Name>ClassLibraryProject</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SQLJobs\SQLJobs.csproj">
+      <Project>{4ead291d-6170-4f53-be73-194a3fced10e}</Project>
+      <Name>SQLJobs</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202012050910339_Initial.resx">

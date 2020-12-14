@@ -11,15 +11,7 @@ namespace TrialsProject
     {
         private static void Main(string[] args)
         {
-            var addAnotherClass = default(char);
-            do
-            {
-                if (GenerateCSClass())
-                    Console.WriteLine("CS File generated successfully!");
-                Console.WriteLine("Would you like to add another class? (y/n)");
-                addAnotherClass = Console.ReadLine()[0];
-            }
-            while (addAnotherClass == 'y');
+            CopyDataToClient2();
             Console.ReadLine();
         }
 
@@ -279,6 +271,14 @@ namespace TrialsProject
             sw.Stop();
             Console.WriteLine($"{sw.ElapsedMilliseconds} milliseconds to get and insert {Visites.Count} Visites row(s).");
             sw.Reset();
+        }
+
+        public static void CopyDataToClient2()
+        {
+            var sqlJobs = new SQLJobs.SQLJobs(
+                @"Data Source=.\sqlexpress;Initial Catalog=GMN;Persist Security Info=True;User ID=sa;Password=Admin123",
+                @"Data Source=172.17.1.243\sqlexpress;Initial Catalog=GMN; Persist Security Info=True;User ID=sa;Password=Admin123");
+            sqlJobs.UpdateDatabase();
         }
 
         private static void ReplaceHTMLExtensionToCSHTML()

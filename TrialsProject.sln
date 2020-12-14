@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryProject", "Clas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceProject", "WindowsServiceProject\WindowsServiceProject.csproj", "{575B4BE1-3E31-4DDF-98AC-CA8B0AAC5ABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTrialProject", "BlazorTrialProject\BlazorTrialProject.csproj", "{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTrialProject", "BlazorTrialProject\BlazorTrialProject.csproj", "{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLJobs", "SQLJobs\SQLJobs.csproj", "{4EAD291D-6170-4F53-BE73-194A3FCED10E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63B5AEFE-DB11-4E5F-820F-DAC55B348A2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EAD291D-6170-4F53-BE73-194A3FCED10E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EAD291D-6170-4F53-BE73-194A3FCED10E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EAD291D-6170-4F53-BE73-194A3FCED10E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EAD291D-6170-4F53-BE73-194A3FCED10E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
