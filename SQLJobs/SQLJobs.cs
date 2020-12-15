@@ -23,16 +23,16 @@ namespace SQLJobs
 
         public void UpdateDatabase()
         {
-            //GetAndInsertAllArticles();
-            //GetAndInsertAllCategorieSiteClients();
-            //GetAndInsertAllFamilleClients();
-            //GetAndInsertAllClients();
-            //GetAndInsertAllSites();
-            //GetAndInsertAllArticleParSites();
-            //GetAndInsertAllUtilisateurs();
+            GetAndInsertAllArticles();
+            GetAndInsertAllCategorieSiteClients();
+            GetAndInsertAllFamilleClients();
+            GetAndInsertAllClients();
+            GetAndInsertAllSites();
+            GetAndInsertAllArticleParSites();
+            GetAndInsertAllUtilisateurs();
+            GetAndInsertAllPlans();
             GetAndInsertAllVisites();
             GetAndInsertAllLigneRapportVisites();
-            GetAndInsertAllPlans();
             GetAndInsertAllTraceGPS();
             GetAndInsertAllTraceGPSSites();
             GetAndInsertAllTypeVisites();
@@ -551,6 +551,16 @@ values (@ID, @StartTime, @EndTime, @Subject, @Status, @Description, @NoteMarchan
             {
                 output = connection.Query<Utilisateur>(UtilisateursSelectQuery).ToList();
                 connection.Close();
+                output.Add(new Utilisateur
+                {
+                    Id = 0,
+                    IsDeleted = false,
+                    Login = "",
+                    Matricule = "",
+                    Nom = "",
+                    Password = "",
+                    Prenom = "",
+                });
             }
             using (var connection = new SqlConnection(DestinationConnectionString))
             {
@@ -565,17 +575,6 @@ values (@ID, @StartTime, @EndTime, @Subject, @Status, @Description, @NoteMarchan
             using (var connection = new SqlConnection(SourceConnectionString))
             {
                 output = connection.Query<Visite>(VisitesSelectQuery).ToList();
-                output.Add(new Visite
-                {
-                    ID = 0,
-                    Status =0,
-                    Label = 0,
-                    AllDay = false,
-                    EventType = 0,
-                    OwnerId = 0,
-                    IdUserModificationEtat=0,
-                    SendReport = false,                    
-                });
                 connection.Close();
             }
             using (var connection = new SqlConnection(DestinationConnectionString))
