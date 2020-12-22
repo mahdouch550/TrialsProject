@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using TrialsProject.DTS;
 
 namespace TrialsProject
@@ -11,8 +13,41 @@ namespace TrialsProject
     {
         private static void Main(string[] args)
         {
-            CopyDataToClient2();
+            GetBooksInfo();
             Console.ReadLine();
+        }
+
+        private static void GetBooksInfo()
+        {
+            var isbnsFilePath = @"C:\Users\khard\source\repos\GestionBibliotheque\ISBNs.txt";
+            var isbns = File.ReadLines(isbnsFilePath).Distinct().ToList();
+            isbns.ForEach(isbn =>
+            {
+                var url = $"http://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&jscmd=details&format=json";
+                var request = HttpWebRequest.Create(url);
+                var jsonResponse = new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
+                if (jsonResponse.Length > 10)
+                {
+                    try
+                    {
+                        var objectResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                        var details = objectResponse[$"ISBN:{isbn}"].details;
+                        var title = "";
+                        var thumbnail = "";
+                        try
+                        {
+                            title = details.other_titles.ToString();
+                        }
+                        catch
+                        {
+                            title = details.title.ToString();
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            });
         }
 
         public static void CopyDataToClient()
