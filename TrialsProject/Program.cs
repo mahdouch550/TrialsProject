@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SageRecruitmentManagementsModels.DTS;
+using SageRecruitmentManagementsModels.Models.NewJob;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,8 +15,15 @@ namespace TrialsProject
     {
         private static void Main(string[] args)
         {
-            GetBooksInfo();
+            CopySageDatabase();
             Console.ReadLine();
+        }
+
+        private static void CopySageDatabase()
+        {
+            var context = new SageRecruitementManagementDbContext();
+            var res = SageRecruitmentManagementsModels.DTS.SqlJobs.UpdateData();
+            Console.WriteLine(res);
         }
 
         private static void GetBooksInfo()
