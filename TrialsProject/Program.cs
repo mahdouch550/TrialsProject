@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using GestionBibliotheque.DTS;
+using GestionBibliotheque.Models.Entities;
+using GestionBibliotheque.Models.Enumerations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,35 +23,62 @@ namespace TrialsProject
 
         private static void GetBooksInfo()
         {
-            var isbnsFilePath = @"C:\Users\khard\source\repos\GestionBibliotheque\ISBNs.txt";
-            var isbns = File.ReadLines(isbnsFilePath).Distinct().ToList();
-            isbns.ForEach(isbn =>
+            var context = new AppDBContext();
+            var random = new Random();
+            var keywords = "Action,Histoire,Enfants,Classique,Criminalité,Drame,Horreur,Romance,Science";
+            keywords.Split(',').ToList().ForEach(keyword =>
             {
-                var url = $"http://openlibrary.org/api/books?bibkeys=ISBN:{isbn}&jscmd=details&format=json";
-                var request = HttpWebRequest.Create(url);
-                var jsonResponse = new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
-                if (jsonResponse.Length > 10)
+                try
                 {
-                    try
+                    var url = "https://www.googleapis.com/books/v1/volumes?q=" + keyword;
+                    var request = WebRequest.Create(url);
+                    var response = JsonConvert.DeserializeObject<dynamic>(new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd());
+                    var items = JArray.Parse(response.items.ToString());
+                    for (int i = 0; i < items.Count; i++)
                     {
-                        var objectResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
-                        var details = objectResponse[$"ISBN:{isbn}"].details;
-                        var title = "";
-                        var thumbnail = "";
-                        try
+                        var item = items[i];
+                        var book = new Book
                         {
-                            title = details.other_titles.ToString();
-                        }
-                        catch
-                        {
-                            title = details.title.ToString();
-                        }
-                    }
-                    catch
-                    {
+                            ID = Guid.NewGuid(),
+                            BookName = item.volumeInfo.title.ToString(),
+                            BookStatus = BookStatus.Disponible,
+                            BookType = (LibraryItemType)Enum.Parse(typeof(LibraryItemType), keyword),
+                            Image = GetImage(item.volumeInfo.imageLinks.thumbnail.ToString()),
+                            Language = item.volumeInfo.language.ToString() switch
+                            {
+                                "fr" => Language.French,
+                                "ar" => Language.Arabic,
+                                _ => Language.English
+                            },
+                            NombreCopies = random.Next(1, 25),
+                        };
+                        book.PrixLocationParJour = GetRandomNumber(70, 1000) / 30;
+                        context.Books.Add(book);
+                        context.SaveChanges();
+                        Console.WriteLine(book.BookName + " added to books list!");
                     }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                
             });
+        }
+
+        private static double GetRandomNumber(double minimum, double maximum)
+        {
+            Random random = new Random();
+            return random.NextDouble() * (maximum - minimum) + minimum;
+        }
+
+        private static byte[] GetImage(String url)
+        {
+            using (var wc = new WebClient())
+            {
+                var output = wc.DownloadData(url);
+                return output;
+            }
         }
 
         public static void CopyDataToClient()
@@ -357,10 +388,10 @@ namespace TrialsProject
                     property = Console.ReadLine();
                     script += "\t\tpublic " + property + " { get; set; }" + Environment.NewLine;
                 }
-            } 
+            }
             while (!property.Equals("finished!"));
 
-            script += "\t}"+Environment.NewLine+"}";
+            script += "\t}" + Environment.NewLine + "}";
             File.Create(outputFilePath).Close();
             File.WriteAllText(outputFilePath, script);
             return true;
@@ -371,8 +402,8 @@ namespace TrialsProject
             var files = Directory.GetFiles(folderPath).ToList();
             files.ForEach(file =>
             {
-                Console.WriteLine("JS Files used in "+Path.GetFileName(file)+": ");
-                var linesWithJsFileExtension = File.ReadAllLines(file).Where(line => line.Contains(".js\"")).Select(line => line.Replace("                ","")).ToList();
+                Console.WriteLine("JS Files used in " + Path.GetFileName(file) + ": ");
+                var linesWithJsFileExtension = File.ReadAllLines(file).Where(line => line.Contains(".js\"")).Select(line => line.Replace("                ", "")).ToList();
                 linesWithJsFileExtension.ForEach(line => Console.WriteLine(line));
 
                 Console.WriteLine("CSS Files used in " + Path.GetFileName(file) + ": ");
